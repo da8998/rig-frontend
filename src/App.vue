@@ -8,7 +8,15 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "App"
+    name: "App",
+    data() {
+    return {
+      email: null,
+      body: null,
+      showSignOut: false,
+      authState: null
+    }
+  },
 });
 </script>
 
