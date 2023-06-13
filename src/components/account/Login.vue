@@ -2,8 +2,8 @@
   <div id="account-login">
     <div id="account-login-content">
       <h5>Login with your Rig ID</h5>
-      <input v-model="email" type="text">
-      <input v-model="password" type="password">
+      <input v-model="email" type="text" />
+      <input v-model="password" type="password" />
       <a @click="login(email, password)">Sign In</a>
     </div>
   </div>
@@ -18,17 +18,24 @@ export default defineComponent({
   data() {
     return {
       email: "",
-      password: ""
-    }
+      password: "",
+    };
   },
   methods: {
-    async login(email: any, password: any) {
-      await axios.get("http://localhost:3000/login", <any>{
-        username: email,
-        password: password
+    login(email: string, password: string) {
+      axios.get("http://localhost:3000/login", {
+        params: {
+          credentials: true,
+          username: email,
+          password: password,
+        },
+      }).then((response) => {
+          console.info(`${response}`)
+      }).catch((error) => {
+        console.error(`${error}`)
       });
-    }
-  }
+    },
+  },
 });
 </script>
 
@@ -77,7 +84,7 @@ export default defineComponent({
   top: 350px;
   left: 40%;
   width: 9.75%;
-  right:50.25%;
+  right: 50.25%;
 }
 
 #forgot-password {
