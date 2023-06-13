@@ -1,10 +1,30 @@
 <template>
-  <div id="account-login">
-    <div id="account-login-content">
-      <h5>Login with your Rig ID</h5>
-      <input v-model="email" type="text" />
-      <input v-model="password" type="password" />
-      <a @click="login(email, password)">Sign In</a>
+  <div className="w-screen h-screen dark:bg-slate-950">
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2/6 bg-white rounded-lg shadow-2xl sm:p-6 md:p-8 dark:bg-black dark:border-slate-900">
+    <form className="space-y-6">
+        <h5 className="text-xl font-medium text-gray-900 dark:text-white">Rig ID</h5>
+        <div>
+            <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email or Username</label>
+            <input type="email" v-model="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="user@example.com" required>
+        </div>
+        <div>
+            <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+        </div>
+        <div className="flex items-start">
+            <div className="flex items-start">
+                <div className="flex items-center h-5">
+                    <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required>
+                </div>
+                <label for="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+            </div>
+            <a href="#" className="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Forgot Password?</a>
+        </div>
+        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+        <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+            Not registered? <a @click="$router.push(`/register`)" className="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
+        </div>
+    </form>
     </div>
   </div>
 </template>
@@ -25,74 +45,11 @@ export default defineComponent({
     login(email: string, password: string) {
       axios.get("http://localhost:3000/login", {
         params: {
-          credentials: true,
           username: email,
           password: password,
         },
-      }).then((response) => {
-          console.info(`${response}`)
-      }).catch((error) => {
-        console.error(`${error}`)
       });
     },
   },
 });
 </script>
-
-<style scoped>
-#account-login {
-  position: fixed;
-  left: 10%;
-  width: 80%;
-  right: 10%;
-  height: 100%;
-  background-color: black;
-  border-radius: 0%;
-  text-align: center;
-  top: 200px;
-}
-
-#account-login-content {
-  position: fixed;
-  left: 10%;
-  right: 10%;
-  top: 200px;
-  text-align: center;
-}
-
-#username {
-  position: fixed;
-  text-align: center;
-  top: 250px;
-  left: 40%;
-  width: 20%;
-  right: 40%;
-}
-
-#password {
-  position: fixed;
-  text-align: center;
-  top: 300px;
-  left: 40%;
-  width: 20%;
-  right: 40%;
-}
-
-#login {
-  position: fixed;
-  text-align: center;
-  top: 350px;
-  left: 40%;
-  width: 9.75%;
-  right: 50.25%;
-}
-
-#forgot-password {
-  position: fixed;
-  text-align: center;
-  top: 350px;
-  width: 9.75%;
-  left: 50.25%;
-  right: 40%;
-}
-</style>
